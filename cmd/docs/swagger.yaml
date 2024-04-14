@@ -1,0 +1,90 @@
+definitions:
+  api.CoverResponse:
+    properties:
+      response:
+        type: string
+    type: object
+  api.Healz.response:
+    properties:
+      message:
+        example: OK
+        type: string
+    type: object
+  api.Ready.response:
+    properties:
+      message:
+        example: Ready
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /cover:
+    get:
+      consumes:
+      - application/json
+      description: Check if cover available, if not - download from local and upload
+        to remote
+      parameters:
+      - description: Type
+        in: query
+        name: type
+        required: true
+        type: string
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Local bucket
+        in: query
+        name: l_bucket
+        required: true
+        type: string
+      - description: Remote bucket
+        in: query
+        name: r_bucket
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.CoverResponse'
+      summary: check if cover available, if not - download from local and upload to
+        remote
+      tags:
+      - api
+  /healz:
+    get:
+      consumes:
+      - application/json
+      description: Check health endpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Healz.response'
+      summary: healz
+      tags:
+      - utils
+  /ready:
+    get:
+      consumes:
+      - application/json
+      description: Check readiness
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Ready.response'
+      summary: ready
+      tags:
+      - utils
+swagger: "2.0"
